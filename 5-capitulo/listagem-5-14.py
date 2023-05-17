@@ -8,7 +8,10 @@ while True:
         apagar -= atual
         cedulas += 1
     else:
-        print(f'{cedulas} cédula(s) de R$ {atual:.2f}')
+        if atual >= 1:
+            print(f'{cedulas} cédula(s) de R$ {atual:.2f}')
+        else:
+            print(f'{cedulas} cédula(s) de R$ {atual:.2f}')
         if apagar < 0.01:
             break
         if atual == 100:
@@ -23,8 +26,6 @@ while True:
             atual = 1
         elif atual == 1:
             atual = 0.50
-        # A partir daqui começa a ter erro de precisão, mas
-        # aparentemente a ideia do livro é compreender a lógica apenas.
         elif atual == 0.50:
             atual = 0.10
         elif atual == 0.10:
