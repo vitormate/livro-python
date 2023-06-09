@@ -1,4 +1,4 @@
-compras = [ ]
+compras = []
 while True:
     produto = input("Produto: ")
     if produto == "fim":
