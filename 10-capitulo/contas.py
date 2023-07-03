@@ -16,9 +16,12 @@ class Conta:
             print(f'{ESPACO}Nome: {cliente.nome} | Telefone: {cliente.telefone}')
         print()
 
+    def pode_sacar(self, valor):
+        return self.saldo >= valor
+
     def saque(self, valor):
-        if self.saldo >= valor:
-            self.saldo -=valor
+        if self.pode_sacar(valor):
+            self.saldo -= valor
             self.operacoes.append(["SAQUE", valor])
             return True
         else:
@@ -41,10 +44,14 @@ class ContaEspecial(Conta):
         super().__init__(clientes, número, saldo)
         self.limite = limite
     
-    def saque(self, valor):
-        if self.saldo + self.limite >= valor:
-            self.saldo -= valor
-            self.operacoes.append(['SAQUE', valor])
-            return True
-        else:
-            return False
+    def pode_sacar(self, valor):
+        return self.saldo + self.limite >= valor
+        
+    def extrato(self):
+        total = self.saldo + self.limite
+        print(f'Extrato CC N° {self.número}')
+        for o in self.operacoes:
+            print(f'{ESPACO}{o[0]}: {o[1]}')
+        print(f'\n{ESPACO}Saldo: {self.saldo}')
+        print(f'{ESPACO}Limite: {self.limite}')
+        print(f'{ESPACO}Disponível: {total} \n')
